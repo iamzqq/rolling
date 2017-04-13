@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>列表滚动</title>
+		<style>
+			.panel {
+				width: 340px;
+				padding: 10px;
+				text-align: center;
+				background-color: #FF3C3C;
+				border-radius: 0 0 8px 8px;
+			}
+			#listWrap {
+				width: 300px;
+				margin: 0 auto;
+				position: relative;
+				overflow: hidden;
+				height: 120px;
+				background-color: #fff;
+				border-radius: 5px;
+			}
+			
+			#listWrap ul {
+				top: -15px;
+				padding: 0;
+				color: #666;
+				position: relative;
+			}
+			
+			#listWrap li {
+				height: 30px;
+				padding: 0;
+				font-size: 12px;
+				line-height: 30px;
+				list-style: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="panel">
+			<div class="activity" id="listWrap">
+				<ul>
+					<li>user1 获得了7折优惠券</li>
+					<li>user2 获得了8折优惠券</li>
+					<li>user1 获得了7折优惠券</li>
+					<li>user2 获得了8折优惠券</li>
+					<li>user2 获得了8折优惠券</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(function() {
+			var listPanel = $('#listWrap ul');
+			var z = 0; //向上滚动top值
+			function up() { //向上滚动
+				if(listPanel.find('li').length*listPanel.find('li:first').height()>$('#listWrap').height())
+					listPanel.animate({ //中奖结果
+						'top': (z - 30) + 'px'
+					}, 1500, 'linear', function() {
+						listPanel.css({
+								'top': '0px'
+							})
+							.find("li:first").appendTo(listPanel);
+						up();
+					});
+			}
+			up();
+		});
+	</script>
+</html>
